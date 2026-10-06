@@ -1,13 +1,11 @@
 package com.curso.springai.idesguru.controller;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.curso.springai.idesguru.model.Herramienta;
+import com.curso.springai.idesguru.dto.ResultadoDTO;
 import com.curso.springai.idesguru.service.IdesService;
 
 @RestController
@@ -21,7 +19,7 @@ public class IdesController {
 	}
 
 	@GetMapping
-	public List<Herramienta> obtenerHerramientas(@RequestParam String lenguaje) {
+	public ResultadoDTO obtenerHerramientas(@RequestParam String lenguaje) {
 		return idesService.obtenerHerramientas(lenguaje);
 	}
 }

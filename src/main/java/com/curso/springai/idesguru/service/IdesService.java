@@ -1,6 +1,5 @@
 package com.curso.springai.idesguru.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -9,7 +8,7 @@ import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.curso.springai.idesguru.model.Herramienta;
+import com.curso.springai.idesguru.dto.ResultadoDTO;
 
 @Service
 public class IdesService {
@@ -24,7 +23,7 @@ public class IdesService {
 		this.chatClient = chatClient;
 	}
 
-	public List<Herramienta> obtenerHerramientas(String lenguaje) {
+	public ResultadoDTO obtenerHerramientas(String lenguaje) {
 		var systemTemplate = new PromptTemplate(system);
 		System.out.println("System: " + systemTemplate.getTemplate());
 		var userTemplate = new PromptTemplate(user);
@@ -33,9 +32,9 @@ public class IdesService {
         var prompt = new Prompt(systemTemplate.createMessage(Map.of("lenguaje", lenguaje)),
 				userTemplate.createMessage());
 
-        return List.of(chatClient
+        return chatClient
 				.prompt(prompt)
 				.call()
-				.entity(Herramienta[].class));
+				.entity(ResultadoDTO.class);
 	}
 }
