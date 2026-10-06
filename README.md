@@ -8,6 +8,73 @@ El servicio responderá con una lista de entornos de desarrollo integrados (IDE)
 
 **Desarrollo de la práctica**: al finalizar el Tema 3.
 
+## Ejemplos de uso
+
+El servicio expone un único recurso:
+
+```
+GET /api/ides?lenguaje={lenguaje}
+```
+
+| Parámetro | Obligatorio | Descripción |
+|---|---|---|
+| `lenguaje` | Sí | Nombre del lenguaje o tecnología de programación |
+
+### Desde el navegador
+
+- http://localhost:8002/api/ides?lenguaje=Java
+- http://localhost:8002/api/ides?lenguaje=Python
+- http://localhost:8002/api/ides?lenguaje=Delphi
+
+### Desde la línea de comandos
+
+```bash
+curl "http://localhost:8002/api/ides?lenguaje=Java"
+
+# Con espacios en el nombre, dejando que curl codifique el parámetro
+curl -G "http://localhost:8002/api/ides" --data-urlencode "lenguaje=Spring Boot"
+```
+
+### Respuesta
+
+Ejemplo de respuesta para `lenguaje=Java` (el contenido lo genera el modelo y puede variar entre llamadas):
+
+```json
+{
+  "herramientas": [
+    {
+      "nombre": "IntelliJ IDEA",
+      "urlDescarga": "https://www.jetbrains.com/idea/download/",
+      "descripcion": "IDE completo para Java y Kotlin con refactorización, depuración e integración con Maven y Gradle.",
+      "licencia": "Freemium"
+    },
+    {
+      "nombre": "Eclipse IDE",
+      "urlDescarga": "https://www.eclipse.org/downloads/",
+      "descripcion": "IDE extensible mediante plugins, muy utilizado para desarrollo Java empresarial.",
+      "licencia": "Open source"
+    },
+    {
+      "nombre": "Apache Maven",
+      "urlDescarga": "https://maven.apache.org/download.cgi",
+      "descripcion": "Herramienta de construcción y gestión de dependencias para proyectos Java.",
+      "licencia": "Open source"
+    }
+  ]
+}
+```
+
+Cada herramienta incluye:
+
+| Campo | Descripción |
+|---|---|
+| `nombre` | Nombre del IDE o herramienta |
+| `urlDescarga` | Dirección oficial de descarga |
+| `descripcion` | Breve descripción de para qué sirve |
+| `licencia` | Tipo de licencia: Gratuita, Open source, De pago o Freemium |
+
+Si no se envía el parámetro `lenguaje`, el servicio responde con `400 Bad Request`.
+
 ## Cómo empezar
 
 1. Pulsa el botón **`Use this template`** (arriba a la derecha de este repositorio) → **`Create a new repository`**.
